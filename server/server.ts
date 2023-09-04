@@ -9,8 +9,8 @@ require("dotenv").config();
 
 const app = express();
 
-// const mongoDB: string = process.env.PASSWD || "";
-// mongoose.connect(mongoDB);
+const mongoDB: string = process.env.PASSWD || "";
+mongoose.connect(mongoDB);
 
 app.use(
   session({ secret: "supersecret", resave: false, saveUninitialized: false })

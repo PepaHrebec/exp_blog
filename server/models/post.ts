@@ -7,7 +7,6 @@ interface IPost {
   post_content: string;
   timestamp: Date;
   author: Types.ObjectId;
-  comments: Types.ObjectId[];
 }
 
 const PostSchema = new Schema<IPost>({
@@ -15,7 +14,6 @@ const PostSchema = new Schema<IPost>({
   post_content: { type: String, required: true },
   timestamp: { type: Date, required: true },
   author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 const Post = mongoose.model<IPost>("Post", PostSchema);
