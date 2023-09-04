@@ -1,8 +1,10 @@
-import bcrypt from "bcryptjs";
+import * as localStrategy from "passport-local";
 import { VerifyFunction } from "passport-local";
-const LocalStrategy = require("passport-local").Strategy;
+import bcrypt from "bcryptjs";
 import User from "../models/user";
 import { PassportStatic } from "passport";
+
+const LocalStrategy = localStrategy.Strategy;
 
 function initPassport(passport: PassportStatic) {
   const authenticateUser: VerifyFunction = async (username, password, done) => {

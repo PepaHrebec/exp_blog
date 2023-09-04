@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import passport from "passport";
 import initPassport from "./lib/passport_config";
+import router from "./lib/router";
 require("dotenv").config();
 
 const app = express();
@@ -22,9 +23,7 @@ initPassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello");
-});
+app.use(router);
 
 app.listen(3000, () => {
   console.log("Server listens at port 3000");
