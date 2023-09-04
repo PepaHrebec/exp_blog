@@ -11,6 +11,16 @@ export const posts_get = async (req: Request, res: Response) => {
   }
 };
 
+export const post_get = async (req: Request, res: Response) => {
+  try {
+    const postId = req.params.id;
+    const postRes = await Post.findById(postId);
+    res.send(`<pre>${postRes}</pre>`);
+  } catch (error) {
+    res.send(error);
+  }
+};
+
 export const post_create = [
   body("post_name").isString().escape().trim().isLength({ min: 1, max: 100 }),
   body("post_content").isString().escape().trim().isLength({ min: 1 }),
@@ -34,3 +44,13 @@ export const post_create = [
     }
   },
 ];
+
+export const post_delete = async (req: Request, res: Response) => {
+  try {
+    const postId = req.params.id;
+    const postRes = await Post.findByIdAndDelete(postId);
+    res.send(`<pre>${postRes}</pre>`);
+  } catch (error) {
+    res.send(error);
+  }
+};

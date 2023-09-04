@@ -12,11 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.comments_get = void 0;
+exports.comment_delete = exports.comment_create = exports.comments_get = void 0;
+const express_validator_1 = require("express-validator");
 const comment_1 = __importDefault(require("../models/comment"));
 const comments_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const commentsRes = yield comment_1.default.find({}).populate("author");
+        // const postId = req.params.id;
+        const commentsRes = yield comment_1.default.find({}).populate("post");
         res.send(`<pre>${commentsRes}</pre>`);
     }
     catch (error) {
@@ -24,3 +26,41 @@ const comments_get = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.comments_get = comments_get;
+exports.comment_create = [
+    (0, express_validator_1.body)("comment_content")
+        .isString()
+        .escape()
+        .trim()
+        .isLength({ min: 1, max: 300 }),
+    (0, express_validator_1.body)("author").isString().escape().trim().isLength({ min: 1, max: 30 }),
+    (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const err = (0, express_validator_1.validationResult)(req);
+        if (!err.isEmpty()) {
+            return res.status(400).json({ errors: err.array() });
+        }
+        const comment = new comment_1.default({
+            comment_content: req.body.comment_content,
+            author: req.body.author,
+            timestamp: new Date(),
+            post: req.params.id,
+        });
+        try {
+            const savedComment = yield comment.save();
+            res.json(savedComment);
+        }
+        catch (error) {
+            res.json(error);
+        }
+    }),
+];
+const comment_delete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const commentId = req.params.id;
+        const deleteRes = yield comment_1.default.deleteOne({ id: commentId });
+        res.send(deleteRes);
+    }
+    catch (error) {
+        res.send(error);
+    }
+});
+exports.comment_delete = comment_delete;

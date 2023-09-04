@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.post_create = exports.posts_get = void 0;
+exports.post_delete = exports.post_create = exports.post_get = exports.posts_get = void 0;
 const express_validator_1 = require("express-validator");
 const post_1 = __importDefault(require("../models/post"));
 const posts_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -25,6 +25,17 @@ const posts_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.posts_get = posts_get;
+const post_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const postId = req.params.id;
+        const postRes = yield post_1.default.findById(postId);
+        res.send(`<pre>${postRes}</pre>`);
+    }
+    catch (error) {
+        res.send(error);
+    }
+});
+exports.post_get = post_get;
 exports.post_create = [
     (0, express_validator_1.body)("post_name").isString().escape().trim().isLength({ min: 1, max: 100 }),
     (0, express_validator_1.body)("post_content").isString().escape().trim().isLength({ min: 1 }),
@@ -49,3 +60,14 @@ exports.post_create = [
         }
     }),
 ];
+const post_delete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const postId = req.params.id;
+        const postRes = yield post_1.default.findByIdAndDelete(postId);
+        res.send(`<pre>${postRes}</pre>`);
+    }
+    catch (error) {
+        res.send(error);
+    }
+});
+exports.post_delete = post_delete;

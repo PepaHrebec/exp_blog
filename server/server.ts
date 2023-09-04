@@ -5,9 +5,12 @@ import session from "express-session";
 import passport from "passport";
 import initPassport from "./lib/passport_config";
 import router from "./lib/router";
+import cors from "cors";
 require("dotenv").config();
 
 const app = express();
+
+app.use(cors());
 
 const mongoDB: string = process.env.PASSWD || "";
 mongoose.connect(mongoDB);
