@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const express_session_1 = __importDefault(require("express-session"));
+const passport_1 = __importDefault(require("passport"));
+const passport_config_1 = __importDefault(require("./lib/passport_config"));
 require("dotenv").config();
 const app = (0, express_1.default)();
 // const mongoDB: string = process.env.PASSWD || "";
@@ -14,6 +16,9 @@ app.use((0, express_session_1.default)({ secret: "supersecret", resave: false, s
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use((0, cookie_parser_1.default)());
+(0, passport_config_1.default)(passport_1.default);
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
 app.get("/", (req, res) => {
     res.send("Hello");
 });

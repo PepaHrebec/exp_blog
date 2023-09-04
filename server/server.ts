@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import passport from "passport";
+import initPassport from "./lib/passport_config";
 require("dotenv").config();
 
 const app = express();
@@ -16,6 +17,10 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+initPassport(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello");
