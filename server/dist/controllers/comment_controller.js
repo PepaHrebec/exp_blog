@@ -12,13 +12,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.comment_delete = exports.comment_create = exports.comments_get = void 0;
+exports.comment_delete = exports.comment_create = exports.comments_get = exports.test_comments_get = void 0;
 const express_validator_1 = require("express-validator");
 const comment_1 = __importDefault(require("../models/comment"));
-const comments_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const test_comments_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const postId = req.params.id;
         const commentsRes = yield comment_1.default.find({}).populate("post");
+        res.send(`<pre>${commentsRes}</pre>`);
+    }
+    catch (error) {
+        res.send(error);
+    }
+});
+exports.test_comments_get = test_comments_get;
+// recently added -> test!
+const comments_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const postId = req.params.postId;
+        const commentsRes = yield comment_1.default.find({ post: postId });
         res.send(`<pre>${commentsRes}</pre>`);
     }
     catch (error) {

@@ -2,10 +2,21 @@ import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import Comment from "../models/comment";
 
-export const comments_get = async (req: Request, res: Response) => {
+export const test_comments_get = async (req: Request, res: Response) => {
   try {
     // const postId = req.params.id;
     const commentsRes = await Comment.find({}).populate("post");
+    res.send(`<pre>${commentsRes}</pre>`);
+  } catch (error) {
+    res.send(error);
+  }
+};
+
+// recently added -> test!
+export const comments_get = async (req: Request, res: Response) => {
+  try {
+    const postId = req.params.postId;
+    const commentsRes = await Comment.find({ post: postId });
     res.send(`<pre>${commentsRes}</pre>`);
   } catch (error) {
     res.send(error);
