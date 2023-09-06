@@ -11,7 +11,12 @@ import {
   comment_delete,
   comments_get,
 } from "../controllers/comment_controller";
-import { users_get, log_in, log_out } from "../controllers/user_controller";
+import {
+  users_get,
+  log_in,
+  log_out,
+  user_sign_up,
+} from "../controllers/user_controller";
 import checkIfLoggedIn from "./authMiddleware";
 
 const router = express.Router();
@@ -37,6 +42,8 @@ router.get("/comments/:postId", comments_get);
 router.post("/comments/:id/delete", checkIfLoggedIn, comment_delete);
 
 router.get("/users", users_get);
+
+router.post("/users", user_sign_up);
 
 router.post("/log-in", log_in);
 

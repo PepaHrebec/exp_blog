@@ -31,7 +31,7 @@ const comments_get = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const postId = req.params.postId;
         const commentsRes = yield comment_1.default.find({ post: postId });
-        res.send(`<pre>${commentsRes}</pre>`);
+        res.json(commentsRes);
     }
     catch (error) {
         res.send(error);

@@ -21,6 +21,7 @@ router.get("/comments", comment_controller_1.test_comments_get);
 router.get("/comments/:postId", comment_controller_1.comments_get);
 router.post("/comments/:id/delete", authMiddleware_1.default, comment_controller_1.comment_delete);
 router.get("/users", user_controller_1.users_get);
+router.post("/users", user_controller_1.user_sign_up);
 router.post("/log-in", user_controller_1.log_in);
 router.post("/log-out", user_controller_1.log_out);
 router.get("/check", (req, res) => {

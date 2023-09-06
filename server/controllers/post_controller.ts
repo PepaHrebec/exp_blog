@@ -1,11 +1,12 @@
 import { body, validationResult } from "express-validator";
 import { Request, Response } from "express";
 import Post from "../models/post";
+// import Comment from "../models/comment";
 
 export const posts_get = async (req: Request, res: Response) => {
   try {
     const postsRes = await Post.find({});
-    res.send(`<pre>${postsRes}</pre>`);
+    res.json(postsRes);
   } catch (error) {
     res.send(error);
   }
@@ -15,7 +16,7 @@ export const post_get = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;
     const postRes = await Post.findById(postId);
-    res.send(`<pre>${postRes}</pre>`);
+    res.json(postRes);
   } catch (error) {
     res.send(error);
   }
@@ -48,6 +49,7 @@ export const post_create = [
 export const post_delete = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;
+    // const commentRes = await Comment.deleteMany({ post: postId });
     const postRes = await Post.findByIdAndDelete(postId);
     res.send(`<pre>${postRes}</pre>`);
   } catch (error) {

@@ -17,7 +17,7 @@ export const comments_get = async (req: Request, res: Response) => {
   try {
     const postId = req.params.postId;
     const commentsRes = await Comment.find({ post: postId });
-    res.send(`<pre>${commentsRes}</pre>`);
+    res.json(commentsRes);
   } catch (error) {
     res.send(error);
   }

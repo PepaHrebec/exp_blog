@@ -15,10 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.post_delete = exports.post_create = exports.post_get = exports.posts_get = void 0;
 const express_validator_1 = require("express-validator");
 const post_1 = __importDefault(require("../models/post"));
+// import Comment from "../models/comment";
 const posts_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postsRes = yield post_1.default.find({});
-        res.send(`<pre>${postsRes}</pre>`);
+        res.json(postsRes);
     }
     catch (error) {
         res.send(error);
@@ -29,7 +30,7 @@ const post_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postId = req.params.id;
         const postRes = yield post_1.default.findById(postId);
-        res.send(`<pre>${postRes}</pre>`);
+        res.json(postRes);
     }
     catch (error) {
         res.send(error);
@@ -63,6 +64,7 @@ exports.post_create = [
 const post_delete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postId = req.params.id;
+        // const commentRes = await Comment.deleteMany({ post: postId });
         const postRes = yield post_1.default.findByIdAndDelete(postId);
         res.send(`<pre>${postRes}</pre>`);
     }
