@@ -4,12 +4,24 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import TryForm from "./routes/form";
 import { signInAction } from "./lib/actions";
+import Dashboard from "./routes/dashboard";
+import { loggedInLoader } from "./lib/loaders";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <div>Index</div>,
+    loader: loggedInLoader,
+  },
+  {
+    path: "/log-in",
     element: <TryForm />,
     action: signInAction,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    // loader: dashboardLoader,
   },
 ]);
 

@@ -23,6 +23,12 @@ router.post("/comments/:id/delete", authMiddleware_1.default, comment_controller
 router.get("/users", user_controller_1.users_get);
 router.post("/log-in", user_controller_1.log_in);
 router.post("/log-out", user_controller_1.log_out);
+router.get("/check", (req, res) => {
+    if (req.isAuthenticated()) {
+        return res.status(200).json({ message: "Logged in!" });
+    }
+    return res.status(401).json({ message: "Not logged in!" });
+});
 router.get("/issue", (req, res) => {
     res.send("Something went wrong!");
 });
