@@ -13,7 +13,7 @@ const router_1 = __importDefault(require("./lib/router"));
 const cors_1 = __importDefault(require("cors"));
 require("dotenv").config();
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({ credentials: true, origin: "http://localhost:5173" }));
 const mongoDB = process.env.PASSWD || "";
 mongoose_1.default.connect(mongoDB);
 app.use((0, express_session_1.default)({ secret: "supersecret", resave: false, saveUninitialized: false }));

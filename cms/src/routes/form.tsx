@@ -1,20 +1,13 @@
-import { Form, redirect } from "react-router-dom";
-
-export async function formAction({ request }: { request: Request }) {
-  // "http://localhost:3000/posts/64f60c0187ab9c82a26dd27f/comment"
-  const formData = await request.formData();
-  for (const key of formData.keys()) {
-    console.log(key, " - ", formData.get(key));
-  }
-  return redirect("/");
-}
+import { Form } from "react-router-dom";
 
 export default function TryForm() {
   return (
     <div>
       <Form method="post">
-        <input name="comment_content" type="text" />
-        <input name="author" type="text" />
+        <label htmlFor="username">Username</label>
+        <input id="username" name="username" type="text" />
+        <label htmlFor="password">Password</label>
+        <input id="password" name="password" type="text" />
         <button>Submit</button>
       </Form>
     </div>

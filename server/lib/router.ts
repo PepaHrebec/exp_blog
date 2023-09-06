@@ -24,17 +24,17 @@ router.get("/posts", posts_get);
 
 router.post("/posts", checkIfLoggedIn, post_create);
 
-router.get("/post/:id", post_get);
+router.get("/posts/:id", post_get);
 
-router.post("/post/:id/delete", checkIfLoggedIn, post_delete);
+router.post("/posts/:id/delete", checkIfLoggedIn, post_delete);
 
-router.post("/post/:id/comment", comment_create);
+router.post("/posts/:id/comment", comment_create);
 
 router.get("/comments", test_comments_get);
 
 router.get("/comments/:postId", comments_get);
 
-router.post("/comment/:id/delete", comment_delete);
+router.post("/comments/:id/delete", checkIfLoggedIn, comment_delete);
 
 router.get("/users", users_get);
 

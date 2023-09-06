@@ -2,13 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import TryForm, { formAction } from "./routes/form";
+import TryForm from "./routes/form";
+import { signInAction } from "./lib/actions";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <TryForm />,
-    action: formAction,
+    action: signInAction,
   },
 ]);
 

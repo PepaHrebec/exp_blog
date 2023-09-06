@@ -30,15 +30,15 @@ exports.users_get = users_get;
 exports.log_in = [
     (0, express_validator_1.body)("username").trim().escape().isLength({ min: 3, max: 100 }),
     (0, express_validator_1.body)("password").trim().escape().isLength({ min: 3, max: 100 }),
-    (req, res) => {
+    (req, res, next) => {
         const errs = (0, express_validator_1.validationResult)(req);
         if (!errs.isEmpty()) {
-            res.json(errs);
+            return res.status(401).json(errs);
         }
-        passport_1.default.authenticate("local", {
-            successRedirect: "/users",
-            failureRedirect: "/issue",
-        })(req, res);
+        passport_1.default.authenticate("local")(req, res, next);
+    },
+    function (req, res) {
+        return res.status(200).json({ message: "Logged in!" });
     },
 ];
 const log_out = (req, res, next) => {
