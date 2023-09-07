@@ -5,7 +5,7 @@ import "./index.css";
 import TryForm from "./routes/form";
 import { signInAction } from "./lib/actions";
 import Dashboard from "./routes/dashboard";
-import { loggedInLoader } from "./lib/loaders";
+import { loggedInLoader, dashboardLoader } from "./lib/loaders";
 
 const router = createBrowserRouter([
   {
@@ -17,11 +17,12 @@ const router = createBrowserRouter([
     path: "/log-in",
     element: <TryForm />,
     action: signInAction,
+    loader: loggedInLoader,
   },
   {
     path: "/dashboard",
     element: <Dashboard />,
-    // loader: dashboardLoader,
+    loader: dashboardLoader,
   },
 ]);
 
