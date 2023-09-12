@@ -17,7 +17,7 @@ export async function signInAction({ request }: { request: Request }) {
   const validResp = await resp.json();
   console.log(validResp);
   if (resp.status === 200) {
-    return redirect("/dashboard");
+    return redirect("/");
   }
-  return redirect("/");
+  return redirect("/log-in");
 }

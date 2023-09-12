@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { Params, redirect } from "react-router-dom";
 
 async function checkLoggedInStatus() {
   const resp = await fetch("http://localhost:3000/check", {
@@ -9,29 +9,35 @@ async function checkLoggedInStatus() {
   return resp.status;
 }
 
-export async function loggedInLoader() {
+// used for log-in route
+export async function logInComponentLoader() {
   const status = await checkLoggedInStatus();
-  if (status === 200) {
-    return redirect("/dashboard");
+  if (status !== 200) {
+    return null;
   } else {
-    return redirect("/log-in");
+    return redirect("/");
   }
 }
 
+// used for dashboard route
 export async function dashboardLoader() {
   const status = await checkLoggedInStatus();
   if (status === 200) {
-    return { message: "Gello" };
+    return null;
   } else {
     return redirect("/log-in");
   }
 }
 
-export async function logInLoader() {
-  const status = await checkLoggedInStatus();
-  if (status !== 200) {
-    return { message: "Gello" };
-  } else {
-    return redirect("/dashboard");
-  }
+export async function postsLoader() {
+  const postsJSON = await fetch("http://localhost:3000/posts");
+  const posts = await postsJSON.json();
+  return posts;
+}
+
+export async function postLoader(params: Params) {
+  const postId = params.postId;
+  const postJSON = await fetch(`http://localhost:3000/posts/${postId}`);
+  const post = await postJSON.json();
+  return post;
 }
