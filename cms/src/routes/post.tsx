@@ -1,21 +1,40 @@
 import { useLoaderData } from "react-router-dom";
 
 interface IPost {
-  id: number;
+  _id: string;
   post_name: string;
   post_content: string;
   timestamp: Date;
   author: number;
 }
 
+interface IComment {
+  _id: string;
+  comment_content: string;
+  timestamp: Date;
+  author: string;
+  post: string;
+}
+
 export default function Post() {
-  const post = useLoaderData() as IPost;
+  const [post, comments] = useLoaderData() as [IPost, IComment[]];
 
   return (
     <div>
       <h1>{post.post_name}</h1>
       <p>Author: {post.author}</p>
       <p>{post.post_content}</p>
+      <h2>Comments:</h2>
+      <div>
+        {comments.map((comment) => {
+          return (
+            <div key={comment._id}>
+              <p>Author: {comment.author}</p>
+              <p>{comment.comment_content}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

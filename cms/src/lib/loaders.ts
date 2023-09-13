@@ -37,7 +37,12 @@ export async function postsLoader() {
 
 export async function postLoader(params: Params) {
   const postId = params.postId;
-  const postJSON = await fetch(`http://localhost:3000/posts/${postId}`);
-  const post = await postJSON.json();
-  return post;
+  // const postJSON = await fetch(`http://localhost:3000/posts/${postId}`);
+  // const post = await postJSON.json();
+
+  const [post, comments] = await Promise.all([
+    fetch(`http://localhost:3000/posts/${postId}`).then((res) => res.json()),
+    fetch(`http://localhost:3000/comments/${postId}`).then((res) => res.json()),
+  ]);
+  return [post, comments];
 }

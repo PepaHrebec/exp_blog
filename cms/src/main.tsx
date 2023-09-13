@@ -50,8 +50,8 @@ const router = createBrowserRouter([
       // },
       // {
       //   path: "posts/:postId/comments",
-      //   loader: ({ params }) => postLoader(params),
-      //   element: <Post />,
+      //   loader: ({ params }) => commentLoader(params),
+      //   element: <Comments />,
       // },
     ],
   },
