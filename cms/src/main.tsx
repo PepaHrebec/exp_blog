@@ -3,7 +3,11 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import TryForm from "./routes/form";
-import { signInAction, postCreateAction } from "./lib/actions";
+import {
+  signInAction,
+  postCreateAction,
+  delCommentAction,
+} from "./lib/actions";
 import Dashboard from "./routes/dashboard";
 import {
   logInComponentLoader,
@@ -41,17 +45,13 @@ const router = createBrowserRouter([
       {
         path: "posts/:postId",
         loader: ({ params }) => postLoader(params),
+        action: delCommentAction,
         element: <Post />,
       },
       // {
       //   path: "posts/:postId/edit",
       //   loader: ({ params }) => postLoader(params),
-      //   element: <Post />,
-      // },
-      // {
-      //   path: "posts/:postId/comments",
-      //   loader: ({ params }) => commentLoader(params),
-      //   element: <Comments />,
+      //   element: <PostEdit />,
       // },
     ],
   },

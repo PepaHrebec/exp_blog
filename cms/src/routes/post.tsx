@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 
 interface IPost {
   _id: string;
@@ -31,6 +31,15 @@ export default function Post() {
             <div key={comment._id}>
               <p>Author: {comment.author}</p>
               <p>{comment.comment_content}</p>
+              <Form method="POST">
+                <input
+                  type="text"
+                  name="commentId"
+                  defaultValue={comment._id}
+                  hidden
+                />
+                <button>Delete Comment</button>
+              </Form>
             </div>
           );
         })}
