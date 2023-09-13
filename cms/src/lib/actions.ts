@@ -60,8 +60,48 @@ export async function delCommentAction({ request }: { request: Request }) {
   const validResp = await resp.json();
   console.log(validResp);
   return null;
-  // if (resp.status === 200) {
-  //   return redirect(`/posts/${validResp._id}`);
-  // }
-  // return redirect("/posts/create");
+}
+
+export async function updateActions({ request }: { request: Request }) {
+  const reqObj = await request.formData();
+  if (reqObj.get("actionType") === "delete") {
+    const resp = await fetch(
+      `http://localhost:3000/posts/${reqObj.get("postId")}/delete`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(resp);
+    const validResp = await resp.json();
+    console.log(validResp);
+    if (resp.status === 200) {
+      return redirect(`/posts/`);
+    }
+    return redirect("/posts/");
+  } else {
+    const body = Object.fromEntries(reqObj);
+    const bodyJSON = JSON.stringify(body);
+    const resp = await fetch(
+      `http://localhost:3000/posts/${reqObj.get("postId")}/update`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: bodyJSON,
+      }
+    );
+    console.log(resp);
+    const validResp = await resp.json();
+    console.log(validResp);
+    if (resp.status === 200) {
+      return redirect(`/posts/${reqObj.get("postId")}`);
+    }
+    return redirect("/posts/");
+  }
 }

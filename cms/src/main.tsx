@@ -7,6 +7,7 @@ import {
   signInAction,
   postCreateAction,
   delCommentAction,
+  updateActions,
 } from "./lib/actions";
 import Dashboard from "./routes/dashboard";
 import {
@@ -18,6 +19,7 @@ import {
 import Posts from "./routes/posts";
 import Post from "./routes/post";
 import PostCreate from "./routes/postCreate";
+import PostUpdate from "./routes/postUpdate";
 
 const router = createBrowserRouter([
   {
@@ -48,11 +50,12 @@ const router = createBrowserRouter([
         action: delCommentAction,
         element: <Post />,
       },
-      // {
-      //   path: "posts/:postId/edit",
-      //   loader: ({ params }) => postLoader(params),
-      //   element: <PostEdit />,
-      // },
+      {
+        path: "posts/:postId/update",
+        loader: ({ params }) => postLoader(params),
+        action: updateActions,
+        element: <PostUpdate />,
+      },
     ],
   },
 ]);
