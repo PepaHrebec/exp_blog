@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import TryForm from "./routes/form";
-import { signInAction } from "./lib/actions";
+import { signInAction, postCreateAction } from "./lib/actions";
 import Dashboard from "./routes/dashboard";
 import {
   logInComponentLoader,
@@ -13,6 +13,7 @@ import {
 } from "./lib/loaders";
 import Posts from "./routes/posts";
 import Post from "./routes/post";
+import PostCreate from "./routes/postCreate";
 
 const router = createBrowserRouter([
   {
@@ -33,10 +34,25 @@ const router = createBrowserRouter([
         element: <Posts />,
       },
       {
+        path: "posts/create",
+        action: postCreateAction,
+        element: <PostCreate />,
+      },
+      {
         path: "posts/:postId",
         loader: ({ params }) => postLoader(params),
         element: <Post />,
       },
+      // {
+      //   path: "posts/:postId/edit",
+      //   loader: ({ params }) => postLoader(params),
+      //   element: <Post />,
+      // },
+      // {
+      //   path: "posts/:postId/comments",
+      //   loader: ({ params }) => postLoader(params),
+      //   element: <Post />,
+      // },
     ],
   },
 ]);
