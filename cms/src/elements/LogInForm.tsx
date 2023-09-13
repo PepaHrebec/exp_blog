@@ -1,6 +1,6 @@
 import { Form } from "react-router-dom";
 
-export default function TryForm() {
+export default function LogInForm() {
   return (
     <div>
       <Form method="post">

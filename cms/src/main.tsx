@@ -2,14 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import TryForm from "./routes/form";
 import {
   logInAction,
   postCreateAction,
   delCommentAction,
   updateActions,
 } from "./lib/actions";
-import Dashboard from "./routes/dashboard";
 import {
   logInLoader,
   logOutLoader,
@@ -17,10 +15,12 @@ import {
   postsLoader,
   postLoader,
 } from "./lib/loaders";
-import Posts from "./routes/posts";
-import Post from "./routes/post";
-import PostCreate from "./routes/postCreate";
-import PostUpdate from "./routes/postUpdate";
+import TryForm from "./elements/LogInForm";
+import Dashboard from "./elements/Dashboard";
+import Posts from "./elements/Posts";
+import Post from "./elements/Post";
+import PostCreate from "./elements/PostCreate";
+import PostUpdate from "./elements/PostUpdate";
 
 const router = createBrowserRouter([
   {

@@ -1,0 +1,10 @@
+.postList {
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.content {
+  color: gray;
+}

@@ -1,10 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
-import "./dashboard.css";
+import styles from "./dashboard.module.css";
 
 export default function Dashboard() {
   return (
     <>
-      <nav>
+      <nav className={styles.dashNav}>
+        <Link to={"/"}>JoeCMS</Link>
         <Link to={"/log-out"}>Log-out</Link>
       </nav>
       <Outlet />
