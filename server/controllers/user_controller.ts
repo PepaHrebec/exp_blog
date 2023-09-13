@@ -13,7 +13,6 @@ export const users_get = async (req: Request, res: Response) => {
   }
 };
 
-// {"username":"josefhrebec@mail.com","password":"tajneHeslo"}
 // {"username":"newJoe","password":"heslo"}
 
 export const user_sign_up = [

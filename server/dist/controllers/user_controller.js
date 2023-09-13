@@ -27,7 +27,6 @@ const users_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.users_get = users_get;
-// {"username":"josefhrebec@mail.com","password":"tajneHeslo"}
 // {"username":"newJoe","password":"heslo"}
 exports.user_sign_up = [
     (0, express_validator_1.body)("username").trim().escape().isLength({ min: 3, max: 100 }),

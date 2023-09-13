@@ -26,7 +26,6 @@ const test_comments_get = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.test_comments_get = test_comments_get;
-// recently added -> test!
 const comments_get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postId = req.params.postId;
@@ -68,7 +67,7 @@ exports.comment_create = [
 const comment_delete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const commentId = req.params.id;
-        const deleteRes = yield comment_1.default.deleteOne({ id: commentId });
+        const deleteRes = yield comment_1.default.deleteOne({ _id: commentId });
         res.send(deleteRes);
     }
     catch (error) {

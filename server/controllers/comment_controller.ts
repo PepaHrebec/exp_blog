@@ -12,7 +12,6 @@ export const test_comments_get = async (req: Request, res: Response) => {
   }
 };
 
-// recently added -> test!
 export const comments_get = async (req: Request, res: Response) => {
   try {
     const postId = req.params.postId;
@@ -53,7 +52,7 @@ export const comment_create = [
 export const comment_delete = async (req: Request, res: Response) => {
   try {
     const commentId = req.params.id;
-    const deleteRes = await Comment.deleteOne({ id: commentId });
+    const deleteRes = await Comment.deleteOne({ _id: commentId });
     res.send(deleteRes);
   } catch (error) {
     res.send(error);

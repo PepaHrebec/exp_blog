@@ -46,6 +46,29 @@ export const post_create = [
   },
 ];
 
+export const post_update = [
+  body("post_name").isString().escape().trim().isLength({ min: 1, max: 100 }),
+  body("post_content").isString().escape().trim().isLength({ min: 1 }),
+  async (req: Request, res: Response) => {
+    const err = validationResult(req);
+    if (!err.isEmpty()) {
+      return res.status(400).json({ errors: err.array() });
+    }
+    try {
+      const updateResult = await Post.updateOne(
+        { _id: req.params.id },
+        {
+          post_name: req.body.post_name,
+          post_content: req.body.post_content,
+        }
+      );
+      res.json(updateResult);
+    } catch (error) {
+      res.json(error);
+    }
+  },
+];
+
 export const post_delete = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;

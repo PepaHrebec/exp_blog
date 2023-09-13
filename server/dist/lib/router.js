@@ -16,6 +16,7 @@ router.get("/posts", post_controller_1.posts_get);
 router.post("/posts", authMiddleware_1.default, post_controller_1.post_create);
 router.get("/posts/:id", post_controller_1.post_get);
 router.post("/posts/:id/delete", authMiddleware_1.default, post_controller_1.post_delete);
+router.post("/posts/:id/update", authMiddleware_1.default, post_controller_1.post_update);
 router.post("/posts/:id/comment", comment_controller_1.comment_create);
 router.get("/comments", comment_controller_1.test_comments_get);
 router.get("/comments/:postId", comment_controller_1.comments_get);

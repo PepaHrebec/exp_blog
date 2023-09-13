@@ -3,6 +3,7 @@ import {
   post_create,
   post_delete,
   post_get,
+  post_update,
   posts_get,
 } from "../controllers/post_controller";
 import {
@@ -32,6 +33,8 @@ router.post("/posts", checkIfLoggedIn, post_create);
 router.get("/posts/:id", post_get);
 
 router.post("/posts/:id/delete", checkIfLoggedIn, post_delete);
+
+router.post("/posts/:id/update", checkIfLoggedIn, post_update);
 
 router.post("/posts/:id/comment", comment_create);
 

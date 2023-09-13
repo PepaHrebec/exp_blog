@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.post_delete = exports.post_create = exports.post_get = exports.posts_get = void 0;
+exports.post_delete = exports.post_update = exports.post_create = exports.post_get = exports.posts_get = void 0;
 const express_validator_1 = require("express-validator");
 const post_1 = __importDefault(require("../models/post"));
 // import Comment from "../models/comment";
@@ -55,6 +55,26 @@ exports.post_create = [
         try {
             const savedPost = yield post.save();
             res.json(savedPost);
+        }
+        catch (error) {
+            res.json(error);
+        }
+    }),
+];
+exports.post_update = [
+    (0, express_validator_1.body)("post_name").isString().escape().trim().isLength({ min: 1, max: 100 }),
+    (0, express_validator_1.body)("post_content").isString().escape().trim().isLength({ min: 1 }),
+    (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const err = (0, express_validator_1.validationResult)(req);
+        if (!err.isEmpty()) {
+            return res.status(400).json({ errors: err.array() });
+        }
+        try {
+            const updateResult = yield post_1.default.updateOne({ _id: req.params.id }, {
+                post_name: req.body.post_name,
+                post_content: req.body.post_content,
+            });
+            res.json(updateResult);
         }
         catch (error) {
             res.json(error);
