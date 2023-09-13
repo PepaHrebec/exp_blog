@@ -1,12 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
+import "./dashboard.css";
 
 export default function Dashboard() {
   return (
     <>
       <nav>
-        <Link to={"/log-in"}>Log-in</Link>
+        <Link to={"/log-out"}>Log-out</Link>
       </nav>
-      <h1>Dashboard</h1>
       <Outlet />
     </>
   );

@@ -4,14 +4,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import TryForm from "./routes/form";
 import {
-  signInAction,
+  logInAction,
   postCreateAction,
   delCommentAction,
   updateActions,
 } from "./lib/actions";
 import Dashboard from "./routes/dashboard";
 import {
-  logInComponentLoader,
+  logInLoader,
+  logOutLoader,
   dashboardLoader,
   postsLoader,
   postLoader,
@@ -25,8 +26,12 @@ const router = createBrowserRouter([
   {
     path: "/log-in",
     element: <TryForm />,
-    action: signInAction,
-    loader: logInComponentLoader,
+    action: logInAction,
+    loader: logInLoader,
+  },
+  {
+    path: "/log-out",
+    loader: logOutLoader,
   },
   {
     path: "/",

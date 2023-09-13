@@ -1,6 +1,6 @@
 import { redirect } from "react-router-dom";
 
-export async function signInAction({ request }: { request: Request }) {
+export async function logInAction({ request }: { request: Request }) {
   const reqObj = await request.formData();
   const body = Object.fromEntries(reqObj);
   const bodyJSON = JSON.stringify(body);

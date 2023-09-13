@@ -10,13 +10,22 @@ async function checkLoggedInStatus() {
 }
 
 // used for log-in route
-export async function logInComponentLoader() {
+export async function logInLoader() {
   const status = await checkLoggedInStatus();
   if (status !== 200) {
     return null;
   } else {
     return redirect("/");
   }
+}
+
+export async function logOutLoader() {
+  const logOut = await fetch("http://localhost:3000/log-out", {
+    method: "POST",
+    credentials: "include",
+  });
+  console.log(logOut);
+  return redirect("/log-in");
 }
 
 // used for dashboard route
@@ -37,8 +46,6 @@ export async function postsLoader() {
 
 export async function postLoader(params: Params) {
   const postId = params.postId;
-  // const postJSON = await fetch(`http://localhost:3000/posts/${postId}`);
-  // const post = await postJSON.json();
 
   const [post, comments] = await Promise.all([
     fetch(`http://localhost:3000/posts/${postId}`).then((res) => res.json()),
