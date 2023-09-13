@@ -5,7 +5,9 @@ export default function Dashboard() {
   return (
     <>
       <nav className={styles.dashNav}>
-        <Link to={"/"}>JoeCMS</Link>
+        <Link className={styles.cms} to={"/"}>
+          JoeCMS
+        </Link>
         <Link to={"/log-out"}>Log-out</Link>
       </nav>
       <Outlet />

@@ -5,7 +5,11 @@ interface IPost {
   post_name: string;
   post_content: string;
   timestamp: Date;
-  author: number;
+  author: {
+    _id: string;
+    username: string;
+    password: string;
+  };
 }
 
 interface IComment {
@@ -22,7 +26,7 @@ export default function Post() {
   return (
     <div>
       <h1>{post.post_name}</h1>
-      <p>Author: {post.author}</p>
+      <p>Author: {post.author.username}</p>
       <p>{post.post_content}</p>
       <h2>Comments:</h2>
       <div>
