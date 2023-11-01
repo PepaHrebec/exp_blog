@@ -1,18 +1,7 @@
 import Link from "next/link";
+import { IPost } from "@/types";
 
-interface IPost {
-  _id: string;
-  post_name: string;
-  post_content: string;
-  timestamp: Date;
-  author: {
-    _id: string;
-    username: string;
-    password: string;
-  };
-}
-
-function formatContent(content: string, len: number = 10): string {
+function formatContent(content: string, len: number = 20): string {
   if (content.length > len) {
     return `${content.slice(0, len - 3)}...`;
   }

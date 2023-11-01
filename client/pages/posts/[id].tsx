@@ -1,16 +1,6 @@
 import Link from "next/link";
-
-interface IPost {
-  _id: string;
-  post_name: string;
-  post_content: string;
-  timestamp: string;
-  author: {
-    _id: string;
-    username: string;
-    password: string;
-  };
-}
+import dayjs from "dayjs";
+import { IPost } from "@/types";
 
 export const getStaticPaths = async () => {
   const postsJSON = await fetch("http://localhost:3000/posts");
@@ -39,12 +29,22 @@ export const getStaticProps = async (context: any) => {
 
 export default function Page({ post }: { post: IPost }) {
   return (
-    <>
-      <h1 className="font-bold text-2xl">Post: {post.post_name}</h1>
-      <p>{post.timestamp}</p>
-      <p>Author: {post.author.username}</p>
-      <p>{post.post_content}</p>
-      <Link href={"/"}>Go back.</Link>
-    </>
+    <div className="flex flex-col min-h-screen p-2">
+      <div className="flex-1">
+        <h1 className="font-bold text-2xl">{post.post_name}</h1>
+        <p className="font-light">
+          {dayjs(post.timestamp).format("DD/MM/YYYY")}
+        </p>
+        <p>
+          Author: <span className="font-light">{post.author.username}</span>
+        </p>
+        <p>{post.post_content}</p>
+      </div>
+      <footer>
+        <Link href={"/"} className="underline text-center">
+          Go back.
+        </Link>
+      </footer>
+    </div>
   );
 }
