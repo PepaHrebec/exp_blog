@@ -1,9 +1,30 @@
 import Link from "next/link";
 import dayjs from "dayjs";
 import { IPost, IComment } from "@/types";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
+import { FormEvent } from "react";
 
 const fetcher = (args: string) => fetch(args).then((res) => res.json());
+
+const formSubm = async (id: string, e: FormEvent) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const body = Object.fromEntries(data);
+  const bodyJSON = JSON.stringify(body);
+  console.log(bodyJSON);
+  try {
+    const rtrn = await fetch(`http://localhost:3000/posts/${id}/comment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: bodyJSON,
+    });
+    console.log("Success");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getStaticPaths = async () => {
   const postsJSON = await fetch("http://localhost:3000/posts");
@@ -31,7 +52,7 @@ export const getStaticProps = async (context: any) => {
 };
 
 export default function Page({ post }: { post: IPost }) {
-  const { data, isLoading } = useSWR<IComment[]>(
+  const { data, isLoading, mutate } = useSWR<IComment[]>(
     `http://localhost:3000/comments/${post._id}`,
     fetcher
   );
@@ -53,6 +74,18 @@ export default function Page({ post }: { post: IPost }) {
             : data?.map((comm, ind) => {
                 return <li key={ind}>{comm.comment_content}</li>;
               })}
+          <li>
+            <form
+              onSubmit={async (e) => {
+                await formSubm(post._id, e);
+                mutate();
+              }}
+            >
+              <input type="text" name="author" />
+              <input type="text" name="comment_content" />
+              <button type="submit">Submit</button>
+            </form>
+          </li>
         </ul>
       </div>
       <footer>
