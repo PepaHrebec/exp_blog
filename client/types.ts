@@ -9,3 +9,10 @@ export interface IPost {
     password: string;
   };
 }
+
+export interface IComment {
+  comment_content: string;
+  timestamp: Date;
+  author: string;
+  // post: Types.ObjectId;
+}

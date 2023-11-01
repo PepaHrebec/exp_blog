@@ -1,6 +1,9 @@
 import Link from "next/link";
 import dayjs from "dayjs";
-import { IPost } from "@/types";
+import { IPost, IComment } from "@/types";
+import useSWR from "swr";
+
+const fetcher = (args: string) => fetch(args).then((res) => res.json());
 
 export const getStaticPaths = async () => {
   const postsJSON = await fetch("http://localhost:3000/posts");
@@ -28,6 +31,11 @@ export const getStaticProps = async (context: any) => {
 };
 
 export default function Page({ post }: { post: IPost }) {
+  const { data, isLoading } = useSWR<IComment[]>(
+    `http://localhost:3000/comments/${post._id}`,
+    fetcher
+  );
+
   return (
     <div className="flex flex-col min-h-screen p-2">
       <div className="flex-1">
@@ -39,6 +47,13 @@ export default function Page({ post }: { post: IPost }) {
           Author: <span className="font-light">{post.author.username}</span>
         </p>
         <p>{post.post_content}</p>
+        <ul>
+          {isLoading
+            ? "Loading..."
+            : data?.map((comm, ind) => {
+                return <li key={ind}>{comm.comment_content}</li>;
+              })}
+        </ul>
       </div>
       <footer>
         <Link href={"/"} className="underline text-center">
